@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Mở Liên Kết Ngẫu Nhiên</title>
+  
+  <!-- Tải Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Cấu hình Tailwind sử dụng font Inter
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            'random-primary': '#6366f1', // Màu Tím Indigo
+            'random-hover': '#4f46e5',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f7f7f7;
+    }
+    .card-shadow {
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 0 10px -5px rgba(0, 0, 0, 0.04);
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+  <div class="w-full max-w-md bg-white rounded-xl p-8 md:p-10 card-shadow text-center">
+    
+    <!-- Tiêu đề chính -->
+    <h1 class="text-3xl font-extrabold text-gray-800 mb-8">
+      free acc
+    </h1>
+    
+    <!-- Nút hành động -->
+    <button onclick="openRandomLink()" 
+            id="randomButton"
+            class="w-full py-3 px-6 bg-random-primary hover:bg-random-hover text-white font-bold rounded-xl 
+                   transition duration-300 transform hover:scale-[1.02] active:scale-[0.98] 
+                   focus:outline-none focus:ring-4 focus:ring-indigo-300 shadow-lg">
+      🌐get acc🌐
+    </button>
+
+    <!-- Khu vực hiển thị thông báo/liên kết đã mở -->
+    <p id="linkInfo" class="mt-6 text-sm text-gray-600 transition duration-500 opacity-100">
+      Bấm nút để get acc...
+    </p>
+
+  </div>
+
+  <script>
+    // Danh sách các URL ngẫu nhiên đã được cập nhật
+    const randomLinks = [
+      { name: "Link4m (1)", url: "https://link4m.com/eDxpF" }, 
+      { name: "Link4m (2)", url: "https://link4m.com/HHKx5U" },
+      { name: "Link4m (3)", url: "https://link4m.com/8N1Wn2Ei" }
+    ];
+
+    /**
+     * Chọn ngẫu nhiên một liên kết và mở nó trong tab mới.
+     */
+    function openRandomLink() {
+      const infoElement = document.getElementById('linkInfo');
+      
+      // 1. Chọn ngẫu nhiên một phần tử
+      const randomIndex = Math.floor(Math.random() * randomLinks.length);
+      const selectedLink = randomLinks[randomIndex];
+
+      // 2. Mở URL trong tab mới
+      try {
+        window.open(selectedLink.url, '_blank');
+        
+      } catch (e) {
+        // Xử lý lỗi nếu trình duyệt chặn popup
+        infoElement.textContent = `Lỗi: Không thể mở liên kết. Vui lòng kiểm tra cài đặt trình duyệt của bạn.`;
+        infoElement.classList.remove('text-random-primary');
+        infoElement.classList.add('text-red-500', 'font-semibold');
+        console.error("Lỗi khi mở liên kết ngẫu nhiên:", e);
+      }
+    }
+  </script>
+</body>
+</html>
